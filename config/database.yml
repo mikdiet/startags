@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: startags_development
+
+test:
+  <<: *default
+  database: startags_test
+
+# Do not keep production credentials in the repository,
+# instead read the configuration from the environment.
+#
+# Example:
+#   postgres://myuser:mypass@localhost/somedatabase
+#
+production:
+  url: <%= ENV["DATABASE_URL"] %>
