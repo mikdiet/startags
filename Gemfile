@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.0'
 
 group :development do
   gem 'spring'
+  gem 'quiet_assets'
 end
 
 group :development, :test do
