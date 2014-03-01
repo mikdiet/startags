@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :stars, dependent: :destroy
+
 
   def self.from_omniauth(oauth)
     return unless oauth['provider'] == 'github'
