@@ -1,1 +1,33 @@
+.row
+  .sidebar.col-md-2
+    ul.nav
+      li
+        = link_to '#' do
+          | All
+          span.badge.pull-right= rand(20) + 1
+      li
+        = link_to '#' do
+          | Untagged
+          span.badge.pull-right= rand(20) + 1
+    ul.nav
+      - 6.times do
+        li
+          = link_to '#' do
+            = "tag-#{rand(100)}"
+            span.badge.pull-right= rand(20) + 1
+  .main.col-md-10.col-md-offset-2
+    h1.page-header Your Stars, All
+    table.table.table-hover
+      tr
+        th width='25%' Repo
+        th Tags
 
+      - 2.times do |n|
+        tr
+          td
+            p = link_to "user#{rand(100)}/repo#{rand(100)}"
+            p
+              i Some description here...
+          td
+            = hidden_field_tag "tags[#{n}]", rand(6).times.map{ "tag-#{rand(100)}" }.join(','), class: 'b-tags js-tags', id: "star_#{n}_tags",
+                data: {select2_tags: rand(4).times.map{ "tag-#{rand(100)}" }.join(',')}

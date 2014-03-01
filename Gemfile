@@ -6,6 +6,7 @@ gem 'rails', '4.1.0.rc1'
 gem 'pg'
 
 gem 'slim-rails'
+gem 'select2-rails'
 
 gem 'sass-rails', '~> 4.0.1'
 gem 'bootstrap-sass', '~> 3.1.1'
