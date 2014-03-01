@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     current_stars, new_stars = client.starred.map{ |data| stars.find_or_initialize_from_github(data) }.partition(&:persisted?)
     old_star_ids = stars.where.not(id: current_stars.map(&:id)).ids
 
-    current_stars.each{ |star| star.update(unstarred: false) }
+    current_stars.each{ |star| star.update_columns(unstarred: false) if star.unstarred? }
     self.stars << new_stars
     Star.where(id: old_star_ids).update_all unstarred: true
   end
