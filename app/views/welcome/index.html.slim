@@ -1,6 +1,8 @@
 .jumbotron
-  .container
-    h1 Star Tags
-    p Tag your stars!
-    p
-      = link_to 'Join us', '/auth/github'
+  h1 Star Tags
+  p Tag your stars!
+  - if current_user
+    p Welcome, #{current_user.name}
+    p= link_to 'Sign out', signout_path, method: :delete
+  - else
+    p= link_to 'Join us', '/auth/github'

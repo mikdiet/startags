@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :inspect_auth, only: :create
-  def new
-  end
+  #before_action :inspect_auth, only: :create
 
   def create
     user = User.from_omniauth request.env['omniauth.auth']
@@ -11,7 +9,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_url, notice: "See you"
+    redirect_to root_url, notice: "Hope to see you later"
   end
 
 private
