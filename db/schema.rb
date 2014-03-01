@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20140301162633) do
 
   create_table "repos", force: true do |t|
     t.string   "name",        null: false
-    t.string   "description"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

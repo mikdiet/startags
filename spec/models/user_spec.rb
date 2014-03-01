@@ -38,4 +38,32 @@ describe User do
       end
     end
   end
+
+  describe '#collect_stars' do
+    let!(:user){ create :user }
+    let!(:previosly_deleted_star){ create :star, user: user, unstarred: true }
+    let!(:existed_star){ create :star, user: user }
+    let!(:previosly_starred_star){ create :star, user: user }
+    let!(:new_star){ build :star, user: user }
+    subject{ user.stars }
+
+    before do
+      client = double
+      allow(user).to receive(:client).and_return client
+      allow(client).to receive_message_chain(:starred, :map).and_return [previosly_deleted_star, existed_star, new_star]
+      user.collect_stars
+    end
+
+    it 'has actual stars' do
+      expect( subject.starred ).to include previosly_deleted_star, existed_star, new_star
+    end
+
+    it 'marks unstarred stars' do
+      expect( subject.unstarred ).to include previosly_starred_star
+    end
+
+    it 'persists new stars' do
+      expect( new_star ).to be_persisted
+    end
+  end
 end
