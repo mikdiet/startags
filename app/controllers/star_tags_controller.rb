@@ -4,11 +4,13 @@ class StarTagsController < ApplicationController
 
   def create
     @star.tags << @tag
+    @star.touch
     render json: 'ok'
   end
 
   def destroy
     @star.tags.delete @tag
+    @star.touch
     render json: 'ok'
   end
 
