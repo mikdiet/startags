@@ -10,11 +10,11 @@
           | Untagged
           span.badge.pull-right= current_user.stars.includes(:tags).where(stars_tags: {star_id: nil}).count
     ul.nav
-      - current_user.tags_with_count.each do |tag|
+      - @tags.each do |tag_data|
         li
           = link_to '#' do
-            = tag.slug
-            span.badge.pull-right= tag.stars_count
+            = tag_data['term']
+            span.badge.pull-right= tag_data['count']
   .main.col-md-10.col-md-offset-2
     h1.page-header Your Stars, All
     = paginate @stars

@@ -33,6 +33,15 @@ module Star::Searchable
         end
 
         j.sort [:created_at]
+
+        j.facets do
+          j.tag_slugs do
+            j.terms do
+              j.field :tag_slugs
+              j.size 1000
+            end
+          end
+        end
       end
 
       search query
