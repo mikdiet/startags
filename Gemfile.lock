@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/elasticsearch/elasticsearch-rails.git
+  revision: 88b6597e47c9f45024b603faeddb0a85b47e1fce
+  specs:
+    elasticsearch-model (0.1.0.rc1)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.0.rc1)
+
+GIT
   remote: git://github.com/rspec/rspec-rails.git
   revision: 10ab4bfcb79edd7e61dcd4b8901931af80fbcccc
   specs:
@@ -57,6 +67,14 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     diff-lcs (1.2.5)
+    elasticsearch (1.0.0)
+      elasticsearch-api (= 1.0.0)
+      elasticsearch-transport (= 1.0.0)
+    elasticsearch-api (1.0.0)
+      multi_json
+    elasticsearch-transport (1.0.0)
+      faraday
+      multi_json
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.4.0)
@@ -205,6 +223,8 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   coffee-rails (~> 4.0.0)
+  elasticsearch-model!
+  elasticsearch-rails!
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails

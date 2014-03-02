@@ -5,6 +5,8 @@ gem 'rails', '4.1.0.rc1'
 
 gem 'pg'
 gem "octokit", "~> 2.0"
+gem 'elasticsearch-model', github: 'elasticsearch/elasticsearch-rails'
+gem 'elasticsearch-rails', github: 'elasticsearch/elasticsearch-rails'
 
 gem 'slim-rails'
 gem 'select2-rails'

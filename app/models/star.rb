@@ -1,4 +1,6 @@
 class Star < ActiveRecord::Base
+  include Searchable
+
   belongs_to :user
   belongs_to :repo
   has_and_belongs_to_many :tags
