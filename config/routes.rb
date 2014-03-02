@@ -5,5 +5,8 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   delete 'signout', to: 'sessions#destroy', as: 'signout'
 
-  resources :stars, only: %i(index)
+  resources :stars, only: %i(index) do
+    post 'tag/:slug' => 'star_tags#create'
+    delete 'tag/:slug' => 'star_tags#destroy'
+  end
 end

@@ -30,7 +30,7 @@
             p
               i= star.repo.description
           td.js-tags
-            = hidden_field_tag "tags[#{star.id}]", star.tags.map(&:slug).join(','), class: 'b-tags',
+            = hidden_field_tag "tags[#{star.id}]", star.tags.map(&:slug).join(','), class: 'b-tags', data: {id: star.id},
                 id: "star_#{star.id}_tags", placeholder: 'Assign some tags here...'
 
     = paginate @stars
