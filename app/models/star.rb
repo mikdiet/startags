@@ -1,6 +1,7 @@
 class Star < ActiveRecord::Base
   belongs_to :user
   belongs_to :repo
+  has_and_belongs_to_many :tags
 
   scope :starred, ->{ where unstarred: false }
   scope :unstarred, ->{ where unstarred: true }
