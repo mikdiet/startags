@@ -8,6 +8,8 @@ gem "octokit", "~> 2.0"
 
 gem 'slim-rails'
 gem 'select2-rails'
+gem 'kaminari'
+gem 'kaminari-bootstrap'
 
 gem 'sass-rails', '~> 4.0.1'
 gem 'bootstrap-sass', '~> 3.1.1'

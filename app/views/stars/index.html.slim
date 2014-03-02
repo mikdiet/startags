@@ -17,17 +17,20 @@
             span.badge.pull-right= rand(20) + 1
   .main.col-md-10.col-md-offset-2
     h1.page-header Your Stars, All
-    table.table.table-hover
+    = paginate @stars
+    table.table.table-hover.js-stars
       tr
         th width='25%' Repo
         th Tags
 
-      - 2.times do |n|
+      - @stars.each do |star|
         tr
           td
-            p = link_to "user#{rand(100)}/repo#{rand(100)}"
+            p = link_to star.repo.name, "https://github.com/#{star.repo.name}", target: '_blank'
             p
-              i Some description here...
-          td
-            = hidden_field_tag "tags[#{n}]", rand(6).times.map{ "tag-#{rand(100)}" }.join(','), class: 'b-tags js-tags', id: "star_#{n}_tags",
-                data: {select2_tags: rand(4).times.map{ "tag-#{rand(100)}" }.join(',')}
+              i= star.repo.description
+          td.js-tags
+            = hidden_field_tag "tags[#{star.id}]", star.tags.map(&:slug).join(','), class: 'b-tags',
+                id: "star_#{star.id}_tags", placeholder: 'Assign some tags here...'
+
+    = paginate @stars
