@@ -2,6 +2,7 @@ module Star::Searchable
   extend ActiveSupport::Concern
 
   included do
+    paginates_per 100
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
 
@@ -9,13 +10,9 @@ module Star::Searchable
   end
 
   module ClassMethods
-    def tagged_search(user_id, tags: [], q: nil, page: 1, per: 100)
-      page = 1 unless page.present? && page.is_a?(Fixnum) && page > 0
+    def tagged_search(user_id, tags: [], q: nil)
 
       query = Jbuilder.encode do |j|
-        j.size per
-        j.from (page - 1) * per
-
         j.query do
           j.filtered do
             if q.present?
@@ -34,6 +31,8 @@ module Star::Searchable
             end
           end # filtered
         end
+
+        j.sort [:created_at]
       end
 
       search query

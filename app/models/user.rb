@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
     current_stars.each{ |star| star.update_columns(unstarred: false) if star.unstarred? }
     self.stars << new_stars
-    Star.where(id: old_star_ids).update_all unstarred: true
+    Star.where(id: old_star_ids).update_all unstarred: true, created_at: Time.current
   end
 
   def client

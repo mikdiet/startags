@@ -23,7 +23,7 @@
         th width='25%' Repo
         th Tags
 
-      - @stars.each do |star|
+      - @stars.includes(:repo, :tags).each do |star|
         tr
           td
             p = link_to star.repo.name, "https://github.com/#{star.repo.name}", target: '_blank'
