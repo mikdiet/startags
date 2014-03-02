@@ -4,17 +4,17 @@
       li
         = link_to '#' do
           | All
-          span.badge.pull-right= rand(20) + 1
+          span.badge.pull-right= current_user.stars.count
       li
         = link_to '#' do
           | Untagged
-          span.badge.pull-right= rand(20) + 1
+          span.badge.pull-right= current_user.stars.includes(:tags).where(stars_tags: {star_id: nil}).count
     ul.nav
-      - 6.times do
+      - current_user.tags_with_count.each do |tag|
         li
           = link_to '#' do
-            = "tag-#{rand(100)}"
-            span.badge.pull-right= rand(20) + 1
+            = tag.slug
+            span.badge.pull-right= tag.stars_count
   .main.col-md-10.col-md-offset-2
     h1.page-header Your Stars, All
     = paginate @stars

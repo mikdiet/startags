@@ -24,4 +24,9 @@ class User < ActiveRecord::Base
   def client
     @client ||= Octokit::Client.new access_token: token, auto_paginate: true
   end
+
+  # temp
+  def tags_with_count
+    Tag.select("*, (select count(*) from stars inner join stars_tags on stars_tags.star_id = stars.id where user_id=#{id} and stars_tags.tag_id=tags.id) as stars_count").order(:slug)#.having('stars_count > 0')
+  end
 end
