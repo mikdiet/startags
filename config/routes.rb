@@ -9,4 +9,8 @@ Rails.application.routes.draw do
     post 'tag/:slug' => 'star_tags#create'
     delete 'tag/:slug' => 'star_tags#destroy'
   end
+
+  resources :tags, only: %i(index) do
+    get :suggest, on: :collection
+  end
 end
