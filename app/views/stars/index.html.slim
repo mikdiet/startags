@@ -1,20 +1,19 @@
 .row
   .sidebar.col-md-2
     ul.nav
-      li
-        = link_to '#' do
+      li[class=[current_tags.empty? && params[:untagged].blank? && 'active']]
+        = link_to stars_path do
           | All
           span.badge.pull-right= current_user.stars.count
-      li
-        = link_to '#' do
+      li[class=[params[:untagged] && 'active']]
+        = link_to untagged_stars_path do
           | Untagged
           span.badge.pull-right= current_user.stars.includes(:tags).where(stars_tags: {star_id: nil}).count
     ul.nav
       - @tags.each do |tag_data|
-        li
-          = link_to '#' do
-            = tag_data['term']
-            span.badge.pull-right= tag_data['count']
+        = list_item_for_tag(tag_data['term']) do
+          = tag_data['term']
+          span.badge.pull-right= tag_data['count']
   .main.col-md-10.col-md-offset-2
     h1.page-header Your Stars, All
     = paginate @stars

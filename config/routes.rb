@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     delete 'tag/:slug' => 'star_tags#destroy'
   end
 
+  get 'stars/tagged/*tags' => 'stars#index', as: 'tagged_stars'
+  get 'stars/untagged' => 'stars#index', untagged: true, as: 'untagged_stars'
+
   resources :tags, only: %i(index) do
     get :suggest, on: :collection
   end
