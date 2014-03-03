@@ -2,7 +2,7 @@ class StarsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @stars_responce = Star.tagged_search(current_user.id, tags: current_tags).page(params[:page])
+    @stars_responce = Star.tagged_search(current_user.id, tags: current_tags, untagged: params[:untagged]).page(params[:page])
     @stars = @stars_responce.records
     @tags = @stars_responce.response['facets']['tag_slugs']['terms']
   end

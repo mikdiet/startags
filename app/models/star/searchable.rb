@@ -10,7 +10,7 @@ module Star::Searchable
   end
 
   module ClassMethods
-    def tagged_search(user_id, tags: [], q: nil)
+    def tagged_search(user_id, tags: [], q: nil, untagged: false)
 
       query = Jbuilder.encode do |j|
         j.query do
@@ -31,6 +31,10 @@ module Star::Searchable
               ].compact
             end
           end # filtered
+        end
+
+        if untagged
+          j.filter missing: {field: 'tag_slugs'}
         end
 
         j.sort [{created_at: 'desc'}]
