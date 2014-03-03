@@ -26,13 +26,14 @@ module Star::Searchable
             j.filter do
               j.and [
                 {term: {user_id: user_id}},
+                {term: {unstarred: false}},
                 tags.present? ? {terms: {tag_slugs: tags, execution: 'and'}} : nil
               ].compact
             end
           end # filtered
         end
 
-        j.sort [:created_at]
+        j.sort [{created_at: 'desc'}]
 
         j.facets do
           j.tag_slugs do
