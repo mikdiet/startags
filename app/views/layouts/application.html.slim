@@ -10,5 +10,8 @@ html
     = render 'navbar'
     .container-fluid
       - if flash[:notice]
-          .alert.alert-success= flash[:notice]
+        .col-md-3.col-md-offset-9
+          .alert.alert-success.fade.in
+            button.close type='button' data-dismiss='alert' aria-hidden='true' &times;
+            = flash[:notice]
       = yield
