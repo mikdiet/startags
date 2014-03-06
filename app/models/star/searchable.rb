@@ -6,6 +6,11 @@ module Star::Searchable
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
 
+    mapping do
+      indexes :tag_slugs, index: 'not_analyzed'
+      indexes :repo_name
+    end
+
     after_touch() { __elasticsearch__.index_document }
   end
 
