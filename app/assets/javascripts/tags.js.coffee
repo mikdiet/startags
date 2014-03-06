@@ -11,7 +11,7 @@ $ ->
           text: this
       callback(data)
     createSearchChoice: (term) ->
-      valid_term = term.replace /[\s,]/, ''
+      valid_term = term.replace /[^-_\+\.#a-z0-9]/ig, ''
       {id: valid_term, text: valid_term}
     query: (q) ->
       # id = q.element.data('id')
@@ -30,7 +30,7 @@ $ ->
   $('.js-tags input').on 'change', (e) ->
     id = $(e.target).data('id')
     if e.added
-      $.post "/stars/#{ id }/tag/#{ e.added.id }"
+      $.post "/stars/#{ id }/tag/#{ encodeURIComponent e.added.id }"
     if e.removed
-      $.post "/stars/#{ id }/tag/#{ e.removed.id }",
+      $.post "/stars/#{ id }/tag/#{ encodeURIComponent e.removed.id }",
         _method: 'delete'
