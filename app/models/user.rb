@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
+  STARS_SYNC_PERIOD = 30.minutes
+
   has_many :stars, dependent: :destroy
+  after_create :collect_stars_async
 
 
   def self.from_omniauth(oauth)
@@ -10,6 +13,17 @@ class User < ActiveRecord::Base
       user.token = oauth['credentials']['token']
       user.save
     end
+  end
+
+  def repeat_collect_stars_async
+    if stars_updated_at.present? && stars_updated_at < Time.current - STARS_SYNC_PERIOD
+      collect_stars_async
+    end
+  end
+
+  def collect_stars_async
+    update stars_updated_at: nil
+    GetStarsWorker.perform_async(id)
   end
 
   def collect_stars

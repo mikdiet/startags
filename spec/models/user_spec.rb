@@ -66,4 +66,58 @@ describe User do
       expect( new_star ).to be_persisted
     end
   end
+
+  describe '#repeat_collect_stars_async' do
+    let(:user){ create :user }
+
+    it 'does not perform sync when sync in progress' do
+      user.update stars_updated_at: nil
+      expect(user).to_not receive(:collect_stars_async)
+      user.repeat_collect_stars_async
+    end
+
+    it 'does not perform sync when sync was recently' do
+      user.update stars_updated_at: Time.current
+      expect(user).to_not receive(:collect_stars_async)
+      user.repeat_collect_stars_async
+    end
+
+    it 'performs sync' do
+      user.update stars_updated_at: Time.current - 1.minute - User::STARS_SYNC_PERIOD
+      expect(user).to receive(:collect_stars_async)
+      user.repeat_collect_stars_async
+    end
+  end
+
+  describe '#collect_stars_async' do
+    let(:user){ create :user, stars_updated_at: Time.current }
+
+    it 'nullifies stars_updated_at before star collecting' do
+      user.collect_stars_async
+      expect( user.stars_updated_at ).to be_nil
+    end
+
+    it 'runs worker' do
+      expect( GetStarsWorker ).to receive(:perform_async).with(user.id)
+      user.collect_stars_async
+    end
+  end
+
+  describe 'creation' do
+    let(:user){ build :user }
+
+    it 'collects stars' do
+      expect(user).to receive(:collect_stars_async)
+      user.save
+    end
+  end
+
+  describe 'saving' do
+    let(:user){ create :user }
+
+    it 'not collects stars' do
+      expect(user).to_not receive(:collect_stars_async)
+      user.save
+    end
+  end
 end
