@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.from_omniauth request.env['omniauth.auth']
+    user.repeat_collect_stars_async
     session[:user_id] = user.id
     redirect_to stars_url, notice: "Welcome, #{user.name}"
   end
