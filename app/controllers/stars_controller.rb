@@ -8,11 +8,12 @@ class StarsController < ApplicationController
   end
 
   def update_all
-    if current_user.repeat_collect_stars_async
-      render json: 'OK'
-    else
-      render json: current_user.time_to_repeat_collect_stars
-    end
+    current_user.repeat_collect_stars_async
+    render json: current_user.time_to_repeat_collect_stars
+  end
+
+  def update_progress
+    render json: current_user.time_to_repeat_collect_stars
   end
 
 private

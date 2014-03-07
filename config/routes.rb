@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :stars, only: %i(index) do
     post 'update_all', on: :collection
+    get 'update_progress', on: :collection
     post 'tag/:slug' => 'star_tags#create'
     delete 'tag/:slug' => 'star_tags#destroy'
   end
