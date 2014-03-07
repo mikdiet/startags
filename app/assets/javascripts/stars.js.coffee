@@ -3,6 +3,7 @@ class StarUpdate
     @$('.js-can-update .btn').on 'click', @update
     @progressBar = @$('.js-update-progress')
     @start() unless @progressBar.hasClass('hidden')
+    @$('.js-tooltip').tooltip()
 
   $: (selector) ->
     @el.find selector
@@ -25,7 +26,8 @@ class StarUpdate
 
   showWaiting: (time) ->
       @progressBar.addClass('hidden')
-      @$('.js-cannot-update').removeClass('hidden').find('.btn').text("You can update in #{ (parseFloat(time) / 60).toFixed() } minutes")
+      @$('.js-cannot-update').removeClass('hidden').find('.js-tooltip').
+          attr('title', "You can update in #{ (parseFloat(time) / 60).toFixed() } minutes")
 
   start: ->
     @timer = 0
