@@ -14,8 +14,18 @@
         = list_item_for_tag(tag_data['term']) do
           = tag_data['term']
           span.badge.pull-right= tag_data['count']
+
   .main.col-md-10.col-md-offset-2
-    h1.page-header Your Stars, All
+    h1.page-header
+      | Your Stars, All
+      .js-update.pull-right
+        .js-can-update[class=[!current_user.can_update_stars? && 'hidden']]
+          = link_to 'Update my stars', '#', class: 'btn btn-success', role: 'button'
+        .js-cannot-update[class=[current_user.can_update_stars? && !current_user.stars_updated_at.nil? && 'hidden']]
+          = link_to "You can update in #{current_user.time_to_repeat_collect_stars.round / 60} minutes", '#',
+              class: 'btn btn-warning disabled', role: 'button'
+        .js-update-progress[class=[current_user.stars_updated_at && 'hidden']]
+          small In Progress
     = paginate @stars
     table.table.table-hover.js-stars
       tr

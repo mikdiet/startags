@@ -15,10 +15,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def time_to_repeat_collect_stars
+    stars_updated_at.present? && stars_updated_at + STARS_SYNC_PERIOD - Time.current
+  end
+
+  def can_update_stars?
+    time_to_repeat_collect_stars.try :<, 0
+  end
+
   def repeat_collect_stars_async
-    if stars_updated_at.present? && stars_updated_at < Time.current - STARS_SYNC_PERIOD
-      collect_stars_async
-    end
+    collect_stars_async if can_update_stars?
   end
 
   def collect_stars_async

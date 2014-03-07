@@ -7,6 +7,14 @@ class StarsController < ApplicationController
     @tags = @stars_responce.response['facets']['tag_slugs']['terms']
   end
 
+  def update_all
+    if current_user.repeat_collect_stars_async
+      render json: 'OK'
+    else
+      render json: current_user.time_to_repeat_collect_stars
+    end
+  end
+
 private
   helper_method :current_tags
   def current_tags

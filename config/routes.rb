@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   delete 'signout', to: 'sessions#destroy', as: 'signout'
 
   resources :stars, only: %i(index) do
+    post 'update_all', on: :collection
     post 'tag/:slug' => 'star_tags#create'
     delete 'tag/:slug' => 'star_tags#destroy'
   end
