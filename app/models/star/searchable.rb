@@ -42,7 +42,7 @@ module Star::Searchable
           j.filter missing: {field: 'tag_slugs'}
         end
 
-        j.sort [{created_at: 'desc'}]
+        j.sort [{position: 'desc'}]
 
         j.facets do
           j.tag_slugs do
