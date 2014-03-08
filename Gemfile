@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'omniauth-github'
 
+gem 'airbrake'
+
 group :development do
   gem 'spring'
   gem 'quiet_assets'
