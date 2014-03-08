@@ -33,12 +33,22 @@ class User < ActiveRecord::Base
   end
 
   def collect_stars
-    current_stars, new_stars = client.starred.map{ |data| stars.find_or_initialize_from_github(data) }.partition(&:persisted?)
-    old_star_ids = stars.where.not(id: current_stars.map(&:id)).ids
+    current_stars = client.starred.map{ |data| stars.find_or_initialize_from_github(data) }.reverse
+    old_star_ids = stars.where.not(id: current_stars.map(&:id).compact).ids
+    pos = stars.maximum(:position) || 0
 
-    current_stars.each{ |star| star.update(unstarred: false) if star.unstarred? }
-    self.stars << new_stars
-    Star.where(id: old_star_ids).each{ |star| star.update unstarred: true, created_at: Time.current }
+    current_stars.each do |star|
+      if star.new_record?
+        pos += 1
+        star.position = pos
+        self.stars << star
+      elsif star.unstarred?
+        pos += 1
+        star.update(unstarred: false, position: pos)
+      end
+    end
+
+    Star.where(id: old_star_ids).each{ |star| star.update unstarred: true }
   end
 
   def client
