@@ -27,6 +27,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'omniauth-github'
 
 gem 'airbrake'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'spring'

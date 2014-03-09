@@ -131,6 +131,7 @@ GEM
     multi_json (1.8.4)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    newrelic_rpm (3.7.3.199)
     oauth2 (0.9.3)
       faraday (>= 0.8, < 0.10)
       jwt (~> 0.1.8)
@@ -255,6 +256,7 @@ DEPENDENCIES
   jquery-turbolinks
   kaminari
   kaminari-bootstrap
+  newrelic_rpm
   octokit (~> 2.0)
   omniauth-github
   pg
