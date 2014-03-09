@@ -3,9 +3,11 @@ class TagsController < ApplicationController
   end
 
   def suggest
-    @tags = Tag.limit(20)
     if params[:q].present?
-      @tags = @tags.where('slug ilike ?', "#{params[:q]}%")
+      @tag_slugs = Tag.where('slug ilike ?', "#{params[:q]}%").limit(20).pluck(:slug)
+    elsif params[:star_id].present?
+      star = Star.find params[:star_id]
+      @tag_slugs = Star.suggested_tag_slugs(star.repo_id, exclude_tags: star.tags.pluck(:slug))
     end
   end
 end

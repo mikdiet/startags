@@ -57,6 +57,35 @@ module Star::Searchable
       search query
     end
 
+    def suggested_tag_slugs(repo_id, exclude_tags: [])
+      query = Jbuilder.encode do |j|
+        j.size 0
+
+        j.query do
+          j.filtered do
+            j.filter do
+              j.and [
+                {term: {repo_id: repo_id}},
+                {term: {unstarred: false}},
+              ].compact
+            end
+          end # filtered
+        end
+
+        j.facets do
+          j.tag_slugs do
+            j.terms do
+              j.field :tag_slugs
+              j.size 20
+              j.exclude exclude_tags
+            end
+          end
+        end
+      end
+
+      search(query).response['facets']['tag_slugs']['terms'].map{ |f| f['term'] }
+    end
+
     def eager_import
       includes(:tags, :repo).import
     end

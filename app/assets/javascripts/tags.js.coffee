@@ -14,11 +14,12 @@ $ ->
       valid_term = term.replace /[^-_\+\.#a-z0-9]/ig, ''
       {id: valid_term, text: valid_term}
     query: (q) ->
-      # id = q.element.data('id')
+      id = q.element.data('id')
       $.ajax
         url: '/tags/suggest'
         data:
           q: q.term
+          star_id: id
         dataType: 'json'
         success: (data) =>
           q.callback
