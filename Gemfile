@@ -3,12 +3,12 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.0.rc1'
 gem 'puma'
-gem 'sidekiq', github: 'mperham/sidekiq'
+gem 'sidekiq'
 
 gem 'pg'
 gem "octokit", "~> 2.0"
-gem 'elasticsearch-model', github: 'elasticsearch/elasticsearch-rails'
-gem 'elasticsearch-rails', github: 'elasticsearch/elasticsearch-rails'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 gem 'slim-rails'
 gem 'select2-rails'
@@ -34,7 +34,7 @@ group :development do
 end
 
 group :development, :test do
-  gem "rspec-rails", github: 'rspec/rspec-rails'
+  gem "rspec-rails"
   gem 'pry-rails'
 end
 
