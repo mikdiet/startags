@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
 
-gem 'rails', '4.1.0.rc1'
+gem 'rails'
 gem 'puma'
 gem 'sidekiq'
 
 gem 'pg'
-gem "octokit", "~> 2.0"
+gem "octokit", "~> 3.0"
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
