@@ -1,0 +1,3 @@
+project:
+  before:
+    - echo 'Hello, World!'
