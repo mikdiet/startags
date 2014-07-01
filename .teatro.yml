@@ -1,3 +1,4 @@
 project:
+  platform: ruby
   after:
     - echo 'Hello, World!'
