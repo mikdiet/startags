@@ -1,3 +1,4 @@
 project:
   after:
     - echo 'Hello, World!'
+    - echo "I'm on Teatro!!!"
