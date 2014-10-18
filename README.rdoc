@@ -1,28 +1,17 @@
-== README
+== Startags!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Organize your github stars with own tags
 
-Things you may want to cover:
+Unfortunatly, I pause development and disable host. But you can use it on your own host!
 
-* Ruby version
+= Requirements
 
-* System dependencies
+- install Elasticsearch + redis + pg
 
-* Configuration
+- clone and bundle this app
 
-* Database creation
+- register Github app and provide GITHUB_KEY and GITHUB_SECRET global variables
 
-* Database initialization
+- provide SECRET_KEY_BASE global var for production env
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+- run sidekiq (used for collecting new stars) & server
